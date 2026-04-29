@@ -1,0 +1,36 @@
+[project]
+name = "text-to-cad"
+version = "0.1.0"
+description = "A script-driven CAD generation harness for coding agents."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = [
+  "build123d",
+  "ezdxf",
+  "numpy",
+  "trimesh",
+  "vtk",
+  "yourdfpy",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.0",
+]
+
+[tool.uv]
+package = false
+
+[tool.pytest.ini_options]
+addopts = [
+  "--import-mode=importlib",
+]
+pythonpath = [
+  "skills/cad/scripts",
+  "skills/urdf/scripts",
+]
+testpaths = [
+  "skills/cad/scripts",
+  "skills/urdf/scripts",
+]

@@ -24,19 +24,20 @@ Project-specific context may live under `models/`. Keep project-local notes comp
 
 ## Python Environment
 
-Prefer the repo-local CAD runtime when it exists:
+Use the repo-local CAD runtime through `uv`:
 
 ```bash
-./.venv/bin/python
+uv sync
+uv run python
 ```
 
-This environment has the CAD dependencies required by the skill tools, including
-`build123d` and `OCP`. If `.venv` is missing or cannot import those modules,
-create/install it from the repo root before running CAD tools:
+`pyproject.toml` is the source of truth for the harness Python runtime. It
+installs the CAD and URDF dependencies required by the skill tools, including
+`build123d`, `OCP`, `vtk`, and `yourdfpy`. If `.venv` is missing or stale,
+refresh it from the repo root before running CAD tools:
 
 ```bash
-python3.11 -m venv .venv
-./.venv/bin/pip install -r requirements-cad.txt
+uv sync
 ```
 
 ## Source Of Truth
@@ -87,19 +88,19 @@ Run from the repository root unless you intentionally want paths to resolve from
 
 ```bash
 # Regenerate a CAD source
-./.venv/bin/python skills/cad/scripts/gen_step_part models/path/to/source.py
+uv run python skills/cad/scripts/gen_step_part models/path/to/source.py
 
 # Regenerate an assembly source
-./.venv/bin/python skills/cad/scripts/gen_step_assembly models/path/to/assembly.py
+uv run python skills/cad/scripts/gen_step_assembly models/path/to/assembly.py
 
 # Regenerate a URDF sidecar
-./.venv/bin/python skills/urdf/scripts/gen_urdf models/path/to/source.py
+uv run python skills/urdf/scripts/gen_urdf models/path/to/source.py
 
 # Inspect a CAD prompt ref
-./.venv/bin/python skills/cad/scripts/cadref inspect '@cad[models/path/to/entry]' --json
+uv run python skills/cad/scripts/cadref inspect '@cad[models/path/to/entry]' --json
 
 # Render a quick review image
-./.venv/bin/python skills/cad/scripts/snapshot models/path/to/source.py \
+uv run python skills/cad/scripts/snapshot models/path/to/source.py \
   --view isometric --out /tmp/cad-renders/review.png
 ```
 

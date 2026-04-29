@@ -1,3 +1,5 @@
+# Legacy pip requirements for environments that cannot use uv.
+# The harness Python environment is managed by pyproject.toml and uv.lock.
 -r skills/cad/requirements.txt
 -r skills/urdf/requirements.txt
 vtk
